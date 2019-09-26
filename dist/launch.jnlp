@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>EnovaTecnologia</title>
+        <vendor>david</vendor>
+        <homepage href=""/>
+        <description>EnovaTecnologia</description>
+        <description kind="short">EnovaTecnologia</description>
+    </information>
+    <update check="always"/>
+    <resources>
+        <j2se version="1.8+"/>
+        <jar href="EnovaTecnologia.jar" main="true"/>
+    <jar href="lib/mysql-connector-java-5.1.23-bin.jar"/>
+<jar href="lib/commons-beanutils-1.9.0.jar"/>
+<jar href="lib/commons-collections-3.2.1.jar"/>
+<jar href="lib/commons-digester-2.1.jar"/>
+<jar href="lib/commons-javaflow-20060411.jar"/>
+<jar href="lib/commons-logging-1.1.1.jar"/>
+<jar href="lib/groovy-all-2.4.3.jar"/>
+<jar href="lib/itext-2.1.7.js4.jar"/>
+<jar href="lib/jasperreports-6.2.0.jar"/>
+<jar href="lib/jasperreports-fonts-6.2.0.jar"/>
+<jar href="lib/jasperreports-javaflow-6.2.0.jar"/>
+<jar href="lib/jcommon-1.0.23.jar"/>
+<jar href="lib/jfreechart-1.0.19.jar"/>
+<jar href="lib/png-encoder-1.5.jar"/>
+<jar href="lib/poi-3.10.1.jar"/>
+<jar href="lib/servlet-api-2.4.jar"/>
+<jar href="lib/AbsoluteLayout.jar"/>
+<jar href="lib/AutoCompleter.jar"/>
+<jar href="lib/JTattoo-1.6.11.jar"/>
+</resources>
+    <application-desc main-class="newpackage.Principal">
+    </application-desc>
+</jnlp>

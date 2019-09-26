@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1248d129-5321-4fe7-9891-2d042b98cf3e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numCliente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numServicio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     clientes.`idClientes` AS clientes_idClientes,
+     clientes.`nombre` AS clientes_nombre,
+     clientes.`telefono` AS clientes_telefono,
+     clientes.`direccion` AS clientes_direccion,
+     equipos.`idEquipo` AS equipos_idEquipo,
+     equipos.`marca` AS equipos_marca,
+     equipos.`modelo` AS equipos_modelo,
+     equipos_has_clientes.`equipos_idEquipo` AS equipos_has_clientes_equipos_idEquipo,
+     equipos_has_clientes.`clientes_idClientes` AS equipos_has_clientes_clientes_idClientes,
+     clientes_servicios.`idServicio` AS clientes_servicios_idServicio,
+     clientes_servicios.`solucion` AS clientes_servicios_solucion,
+     clientes_servicios.`idEquipo` AS clientes_servicios_idEquipo,
+     clientes_servicios.`idCliente` AS clientes_servicios_idCliente,
+     servicios.`idServicio` AS servicios_idServicio,
+     servicios.`tipoServicio` AS servicios_tipoServicio,
+     servicios.`idTecnico` AS servicios_idTecnico,
+     usuarios.`idUsuario` AS usuarios_idUsuario,
+     usuarios.`nombre` AS usuarios_nombre,
+     clientes_servicios.`suministros` AS clientes_servicios_suministros,
+     clientes_servicios.`garantia` AS clientes_servicios_garantia,
+     clientes_servicios.`fechaEntrega` AS clientes_servicios_fechaEntrega,
+     clientes.`correo` AS clientes_correo
+FROM
+     `clientes` clientes INNER JOIN `equipos_has_clientes` equipos_has_clientes ON clientes.`idClientes` = equipos_has_clientes.`clientes_idClientes`
+     INNER JOIN `equipos` equipos ON equipos_has_clientes.`equipos_idEquipo` = equipos.`idEquipo`
+     INNER JOIN `clientes_servicios` clientes_servicios ON equipos_has_clientes.`equipos_idEquipo` = clientes_servicios.`idEquipo`
+     AND equipos_has_clientes.`clientes_idClientes` = clientes_servicios.`idCliente`
+     INNER JOIN `servicios` servicios ON clientes_servicios.`idServicio` = servicios.`idServicio`
+     INNER JOIN `usuarios` usuarios ON servicios.`idTecnico` = usuarios.`idUsuario`
+WHERE
+     equipos_has_clientes.`clientes_idClientes` = $P{numCliente}
+ AND clientes_servicios.`idServicio` = $P{numServicio}]]>
+	</queryString>
+	<field name="clientes_idClientes" class="java.lang.String"/>
+	<field name="clientes_nombre" class="java.lang.String"/>
+	<field name="clientes_telefono" class="java.lang.String"/>
+	<field name="clientes_direccion" class="java.lang.String"/>
+	<field name="equipos_idEquipo" class="java.lang.Integer"/>
+	<field name="equipos_marca" class="java.lang.String"/>
+	<field name="equipos_modelo" class="java.lang.String"/>
+	<field name="equipos_has_clientes_equipos_idEquipo" class="java.lang.Integer"/>
+	<field name="equipos_has_clientes_clientes_idClientes" class="java.lang.String"/>
+	<field name="clientes_servicios_idServicio" class="java.lang.Integer"/>
+	<field name="clientes_servicios_solucion" class="java.lang.String"/>
+	<field name="clientes_servicios_idEquipo" class="java.lang.Integer"/>
+	<field name="clientes_servicios_idCliente" class="java.lang.String"/>
+	<field name="servicios_idServicio" class="java.lang.Integer"/>
+	<field name="servicios_tipoServicio" class="java.lang.String"/>
+	<field name="servicios_idTecnico" class="java.lang.String"/>
+	<field name="usuarios_idUsuario" class="java.lang.String"/>
+	<field name="usuarios_nombre" class="java.lang.String"/>
+	<field name="clientes_servicios_suministros" class="java.lang.String"/>
+	<field name="clientes_servicios_garantia" class="java.lang.String"/>
+	<field name="clientes_servicios_fechaEntrega" class="java.sql.Timestamp"/>
+	<field name="clientes_correo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="143" y="19" width="222" height="20" backcolor="#CCCCCC" uuid="e867be0e-7088-46fa-99f9-78d08ea4330d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" size="14"/>
+				</textElement>
+				<text><![CDATA[Bitacora de Soporte Tecnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="39" width="243" height="20" uuid="2099e18c-4180-450b-86e1-3485c0f6067f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Soporte y Mantenimiento de Equipos Informaticos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="59" width="243" height="20" uuid="2064b9a3-99ee-431f-8436-380eb500f6d0"/>
+				<text><![CDATA[Av. Alfonso Lopez Cll 32 #15a-67]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="0" width="514" height="2" uuid="125e511a-90e3-4430-ba62-a31e90d45c65"/>
+			</line>
+			<staticText>
+				<reportElement x="406" y="2" width="123" height="20" uuid="50de84a0-30c5-4599-a0cd-d9a259db3ab1"/>
+				<text><![CDATA[Entrega de Equipos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="406" y="22" width="123" height="20" uuid="634df59b-1c54-4711-9cb3-8d47fcd0aa98"/>
+				<textFieldExpression><![CDATA["Fecha: "+$F{clientes_servicios_fechaEntrega}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="386" y="77" width="145" height="20" uuid="40b42ff2-8c40-4f1b-b446-97ed679d857c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio Entregado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="77" width="243" height="20" uuid="083795e7-cf1b-4564-bdea-085b7ef0db75"/>
+				<text><![CDATA[Formato de Entrega al Cliente]]></text>
+			</staticText>
+			<image>
+				<reportElement x="17" y="19" width="126" height="78" uuid="f6fcf4fd-81c6-4ccc-a034-9d6834aa06f5"/>
+				<imageExpression><![CDATA["reportes\\enova.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="501" splitType="Stretch">
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="530" y="-95" width="1" height="535" uuid="453c9877-ccac-450f-bef8-5ca95008669a"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="-97" width="1" height="535" uuid="4bc31563-bc85-4963-976f-0f25619e5a2f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="16" y="438" width="515" height="2" uuid="bdc9eac5-1d39-4c59-bef9-19752d0a9a37"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="258" y="394" width="107" height="1" uuid="add12b1b-b919-4ae3-9120-d7a302a488a3"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="374" y="393" width="143" height="1" uuid="4f8a2430-627f-42d0-8907-77db25219973"/>
+			</line>
+			<staticText>
+				<reportElement x="262" y="400" width="103" height="19" uuid="083273b1-f24e-40a8-b075-ada34565ced1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Firma Tecnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="400" width="143" height="19" uuid="1c3f5ac7-5ab3-4792-91d3-86147e8eebff"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Firma de Conformidad Cliente]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="17" y="0" width="512" height="1" uuid="b134b30f-5172-45a2-a2d0-42cea03a134b"/>
+				<graphicElement>
+					<pen lineWidth="0.01"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="242" y="1" width="1" height="439" uuid="1208f3de-5887-4572-8fe3-f909f533895c"/>
+				<graphicElement>
+					<pen lineWidth="0.01"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="16" y="361" width="512" height="1" uuid="d13e0619-853c-48f8-b7e5-bece0a3da920"/>
+				<graphicElement>
+					<pen lineWidth="0.01"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="124" width="228" height="1" uuid="32905da0-78f5-474e-899b-4f68e4f01e9d"/>
+				<graphicElement>
+					<pen lineWidth="0.01"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="37" y="9" width="100" height="20" uuid="d8943515-b3f2-44a7-a3d0-d4fc4d44e0b8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Del Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="29" width="193" height="20" uuid="9a09b958-c6dd-4652-b220-cd523f753acf"/>
+				<textFieldExpression><![CDATA["Nombre del Cliente: "+$F{clientes_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="49" width="193" height="20" uuid="c69c252e-402c-4aa0-b70b-d2b24c0f27e9"/>
+				<textFieldExpression><![CDATA["Direccion del Cliente: "+$F{clientes_direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="69" width="193" height="20" uuid="488b014b-de16-41e4-a2ef-6105076e3844"/>
+				<textFieldExpression><![CDATA["Telefono: "+$F{clientes_telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="270" y="9" width="100" height="20" uuid="d55c9b8a-371c-460e-b25d-36cc7bc2e8ab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Del Equipo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="272" y="29" width="193" height="20" uuid="4742b87e-6fde-40ce-853c-56c796070708"/>
+				<textFieldExpression><![CDATA["Marca: "+$F{equipos_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="49" width="193" height="20" uuid="d8e98c5c-1b47-4638-b9d9-aecd917f29a2"/>
+				<textFieldExpression><![CDATA["Modelo: "+$F{equipos_modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="69" width="193" height="20" uuid="651f2436-52e3-4dfd-b697-814e2978474c"/>
+				<textFieldExpression><![CDATA["Servicio: "+$F{servicios_tipoServicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="89" width="193" height="20" uuid="57dd399d-3ab6-4d08-aa98-4b52cb5f72a4"/>
+				<textFieldExpression><![CDATA["Tecnico: "+$F{usuarios_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="272" y="148" width="152" height="20" uuid="f989bde4-35d4-4186-a042-633f51e94fbe"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio Realizado: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="252" width="152" height="20" uuid="3016c1d1-7c8a-46b1-9a3f-ba48fd897b83"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Suministros: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="148" width="100" height="20" uuid="f3bc1ef7-9eae-4aa6-9d84-1139f62d5f57"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conformidad: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="37" y="168" width="196" height="119" uuid="7deb6a77-46ff-4167-abd0-df6034e45e9a"/>
+				<textFieldExpression><![CDATA["Recibi de la empresa ENOVA TECNOLOGIA S.A.S el equipo arriba descrito , el cual fue llevado areparacion y/o mantenimiento y se me entrega en perfecto estado y funcionamient a mi entera satisfaccion."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="37" y="373" width="150" height="20" uuid="21c53076-bbc7-4e99-966e-434104271a21"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condiciones de Garantia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="399" width="147" height="20" uuid="e5e13e8b-e257-4a3b-a1d4-cf6614a36a0e"/>
+				<textFieldExpression><![CDATA[$F{clientes_servicios_garantia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="168" width="193" height="70" uuid="20f79428-d260-4515-8445-65ba9859d720"/>
+				<textFieldExpression><![CDATA[$F{clientes_servicios_solucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="272" width="193" height="70" uuid="1525b9ae-093d-4189-af8f-6886691f1561"/>
+				<textFieldExpression><![CDATA[$F{clientes_servicios_suministros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="89" width="193" height="20" uuid="ff98dcf3-cf79-4b44-9646-5c4fceaa8362"/>
+				<textFieldExpression><![CDATA["Correo: "+$F{clientes_correo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

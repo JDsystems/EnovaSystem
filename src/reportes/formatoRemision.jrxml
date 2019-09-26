@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1248d129-5321-4fe7-9891-2d042b98cf3e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numServicio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     equipos.`idEquipo` AS equipos_idEquipo,
+     equipos.`marca` AS equipos_marca,
+     equipos.`modelo` AS equipos_modelo,
+     equipos.`accesorios` AS equipos_accesorios,
+     equipos.`procesador` AS equipos_procesador,
+     equipos.`ram` AS equipos_ram,
+     equipos.`observaciones` AS equipos_observaciones,
+     equipos_has_clientes.`equipos_idEquipo` AS equipos_has_clientes_equipos_idEquipo,
+     equipos_has_clientes.`clientes_idClientes` AS equipos_has_clientes_clientes_idClientes,
+     usuarios.`idUsuario` AS usuarios_idUsuario,
+     usuarios.`nombre` AS usuarios_nombre,
+     usuarios.`telefono` AS usuarios_telefono,
+     usuarios.`direccion` AS usuarios_direccion,
+     servicios.`idServicio` AS servicios_idServicio,
+     servicios.`tipoServicio` AS servicios_tipoServicio,
+     servicios.`idTecnico` AS servicios_idTecnico,
+     clientes_servicios.`idServicio` AS clientes_servicios_idServicio,
+     clientes_servicios.`idEquipo` AS clientes_servicios_idEquipo,
+     clientes_servicios.`idCliente` AS clientes_servicios_idCliente,
+     remisionequipos.`idRemision` AS remisionequipos_idRemision,
+     remisionequipos.`fechaRemision` AS remisionequipos_fechaRemision,
+     remisionequipos.`nombreTecnico` AS remisionequipos_nombreTecnico,
+     remisionequipos.`identificacion` AS remisionequipos_identificacion,
+     remisionequipos.`telefon` AS remisionequipos_telefon,
+     remisionequipos.`direccion` AS remisionequipos_direccion,
+     remisionequipos.`observacion` AS remisionequipos_observacion,
+     remisionequipos.`idServicio` AS remisionequipos_idServicio
+FROM
+     `equipos` equipos INNER JOIN `equipos_has_clientes` equipos_has_clientes ON equipos.`idEquipo` = equipos_has_clientes.`equipos_idEquipo`
+     INNER JOIN `clientes_servicios` clientes_servicios ON equipos_has_clientes.`equipos_idEquipo` = clientes_servicios.`idEquipo`
+     AND equipos_has_clientes.`clientes_idClientes` = clientes_servicios.`idCliente`
+     INNER JOIN `servicios` servicios ON clientes_servicios.`idServicio` = servicios.`idServicio`
+     INNER JOIN `usuarios` usuarios ON servicios.`idTecnico` = usuarios.`idUsuario`
+     INNER JOIN `remisionequipos` remisionequipos ON servicios.`idServicio` = remisionequipos.`idServicio`
+WHERE
+servicios.`idServicio` =$P{numServicio}
+     ]]>
+	</queryString>
+	<field name="equipos_idEquipo" class="java.lang.Integer"/>
+	<field name="equipos_marca" class="java.lang.String"/>
+	<field name="equipos_modelo" class="java.lang.String"/>
+	<field name="equipos_accesorios" class="java.lang.String"/>
+	<field name="equipos_procesador" class="java.lang.String"/>
+	<field name="equipos_ram" class="java.lang.String"/>
+	<field name="equipos_observaciones" class="java.lang.String"/>
+	<field name="equipos_has_clientes_equipos_idEquipo" class="java.lang.Integer"/>
+	<field name="equipos_has_clientes_clientes_idClientes" class="java.lang.String"/>
+	<field name="usuarios_idUsuario" class="java.lang.String"/>
+	<field name="usuarios_nombre" class="java.lang.String"/>
+	<field name="usuarios_telefono" class="java.lang.String"/>
+	<field name="usuarios_direccion" class="java.lang.String"/>
+	<field name="servicios_idServicio" class="java.lang.Integer"/>
+	<field name="servicios_tipoServicio" class="java.lang.String"/>
+	<field name="servicios_idTecnico" class="java.lang.String"/>
+	<field name="clientes_servicios_idServicio" class="java.lang.Integer"/>
+	<field name="clientes_servicios_idEquipo" class="java.lang.Integer"/>
+	<field name="clientes_servicios_idCliente" class="java.lang.String"/>
+	<field name="remisionequipos_idRemision" class="java.lang.Integer"/>
+	<field name="remisionequipos_fechaRemision" class="java.sql.Timestamp"/>
+	<field name="remisionequipos_nombreTecnico" class="java.lang.String"/>
+	<field name="remisionequipos_identificacion" class="java.lang.String"/>
+	<field name="remisionequipos_telefon" class="java.lang.String"/>
+	<field name="remisionequipos_direccion" class="java.lang.String"/>
+	<field name="remisionequipos_observacion" class="java.lang.String"/>
+	<field name="remisionequipos_idServicio" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="161" y="19" width="222" height="20" backcolor="#CCCCCC" uuid="e867be0e-7088-46fa-99f9-78d08ea4330d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" size="14"/>
+				</textElement>
+				<text><![CDATA[Remision de Equipos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="39" width="257" height="20" uuid="2099e18c-4180-450b-86e1-3485c0f6067f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Soporte y Mantenimiento de Equipos Informaticos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="59" width="257" height="20" uuid="2064b9a3-99ee-431f-8436-380eb500f6d0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Av. Alfonso Lopez Cll 32 #15a-67]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="0" width="514" height="2" uuid="125e511a-90e3-4430-ba62-a31e90d45c65"/>
+			</line>
+			<image>
+				<reportElement x="17" y="19" width="126" height="60" uuid="eb1a93d4-cb30-422e-b567-74eb8a955ff6"/>
+				<imageExpression><![CDATA["C:\\Users\\david\\Documents\\EnovaTecnologia\\img\\enova.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="404" y="19" width="127" height="60" uuid="9abd856f-fb62-4429-84c3-c6d83da5b985"/>
+				<imageExpression><![CDATA["C:\\Users\\david\\Documents\\EnovaTecnologia\\img\\soporte.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="501" splitType="Stretch">
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="530" y="-79" width="1" height="474" uuid="453c9877-ccac-450f-bef8-5ca95008669a"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="15" y="-79" width="1" height="474" uuid="4bc31563-bc85-4963-976f-0f25619e5a2f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="16" y="395" width="514" height="2" uuid="bdc9eac5-1d39-4c59-bef9-19752d0a9a37"/>
+			</line>
+			<textField>
+				<reportElement x="17" y="13" width="358" height="20" uuid="4d3027b6-da49-48e9-be13-7af09bc7eaac"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Fecha de Remision: "+$F{remisionequipos_fechaRemision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="13" width="154" height="20" uuid="e50f6e82-be0d-4c5f-88dd-9b28b315d1e3"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["N° Remision: 000"+$F{remisionequipos_idRemision}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="16" y="33" width="515" height="15" forecolor="#D0B48E" backcolor="#CCCCCC" uuid="58075252-b3fb-421e-8ec3-04e747b1e041"/>
+			</frame>
+			<staticText>
+				<reportElement x="17" y="33" width="511" height="15" uuid="c5f1678c-160e-48f4-9fe1-d9687d5abba8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Datos del Tecnico que Autoriza la Remision]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="83" width="270" height="24" uuid="fc89d845-c0a8-4d4f-bde8-88ecc06e8908"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Nombre: "+$F{remisionequipos_nombreTecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="83" width="243" height="24" uuid="71b57090-8b3f-4f1d-bf95-2166304d43c5"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Telefono: "+$F{remisionequipos_telefon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="107" width="270" height="20" uuid="608a9046-74d6-4e6d-8119-8fdb3eff2a53"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["C.C-Nit: "+$F{remisionequipos_identificacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="107" width="242" height="20" uuid="b76ee79f-1c2d-4a2f-b688-0d55a766197c"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Direccion: "+$F{remisionequipos_direccion}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="16" y="68" width="514" height="15" forecolor="#D0B48E" backcolor="#CCCCCC" uuid="71f093ff-7798-4935-badd-e8bb5c9f4a10"/>
+			</frame>
+			<staticText>
+				<reportElement x="17" y="68" width="511" height="15" uuid="55155dbb-9df1-453d-a158-62e4b4b134d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Datos del Tecnico o Empresa que Recibe el Equipo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="48" width="271" height="20" uuid="b5f122fd-09f1-45f4-bbb3-edcad3defa9b"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Nombre: "+$F{usuarios_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="48" width="241" height="20" uuid="05b7fc39-bc54-4601-ab11-ba77314529fa"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textFieldExpression><![CDATA["Telefono: "+$F{usuarios_telefono}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="16" y="127" width="515" height="15" forecolor="#D0B48E" backcolor="#CCCCCC" uuid="1f299c96-bd07-498e-b76e-8095f2db3b46"/>
+			</frame>
+			<staticText>
+				<reportElement x="19" y="127" width="511" height="15" uuid="10f9dc4d-cf55-4c02-8ed0-b1e47b6d1806"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descripcion del Equipo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="159" width="73" height="68" uuid="a3b955d7-bca5-4cc8-b755-24b3bc143489"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="159" width="79" height="68" uuid="9c7e4a61-853d-4ac9-8964-35f762cfad87"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="169" y="159" width="79" height="68" uuid="a34b5118-9a4f-4d00-8ba8-4ba4eb2610c4"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_accesorios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="159" width="79" height="68" uuid="564e872b-2a65-473f-92c7-b17800f76bed"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_procesador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="159" width="79" height="68" uuid="ceb6ce5d-e5cd-4f06-aa58-00ee1eae7601"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_ram}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="159" width="123" height="68" uuid="dd91dbe5-fc4e-41d6-a8c1-a1ac19427ac8"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{equipos_observaciones}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="17" y="227" width="513" height="15" forecolor="#D0B48E" backcolor="#CCCCCC" uuid="2e1bfac4-0b89-4fe1-b491-ec98a7678ebb"/>
+			</frame>
+			<staticText>
+				<reportElement x="15" y="227" width="511" height="15" uuid="a3bbcec8-4c27-4d42-8761-002ff5b5d3ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Observaciones Hechas por el Tecnico]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="242" width="512" height="69" uuid="3b311b26-7a95-4bb3-a644-59645386dccc"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{remisionequipos_observacion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="45" y="344" width="224" height="1" uuid="add12b1b-b919-4ae3-9120-d7a302a488a3"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="293" y="345" width="220" height="1" uuid="4f8a2430-627f-42d0-8907-77db25219973"/>
+			</line>
+			<staticText>
+				<reportElement x="45" y="346" width="224" height="15" uuid="083273b1-f24e-40a8-b075-ada34565ced1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Firma Tecnico que Autoriza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="346" width="220" height="15" uuid="1c3f5ac7-5ab3-4792-91d3-86147e8eebff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Firma Tecnico-Empresa que Recibe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="140" width="74" height="19" uuid="c6be091d-c9be-4fce-ac5d-5d8c49064963"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="140" width="79" height="19" uuid="47675a68-d6ec-495c-8b1a-3ef574a1f2e4"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="140" width="79" height="19" uuid="49b0d7ae-4bfd-459a-a138-15a8d6ca82ae"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Accesorios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="140" width="79" height="19" uuid="540bd9a7-5479-40cd-aa8f-f3567509b39d"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Procesador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="140" width="79" height="19" uuid="8f60538f-4b51-4344-bb8f-129c0ffad3e3"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="140" width="122" height="19" uuid="c1e3b544-d724-4fe1-be70-34f180366373"/>
+				<box>
+					<pen lineWidth="0.01"/>
+					<topPen lineWidth="0.01"/>
+					<leftPen lineWidth="0.01"/>
+					<bottomPen lineWidth="0.01"/>
+					<rightPen lineWidth="0.01"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
